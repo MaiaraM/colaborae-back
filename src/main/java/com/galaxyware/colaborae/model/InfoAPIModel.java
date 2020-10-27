@@ -1,4 +1,4 @@
-package com.galaxyware.colaborae.models;
+package com.galaxyware.colaborae.model;
 
 import lombok.*;
 
