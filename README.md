@@ -27,6 +27,7 @@ Marque o campo "compiler.automake.allow.when.app.running"
 
 ### Roda Projeto (Intellij)
 
+![Configuração](https://github.com/MaiaraM/colaborae-back/blob/feature/1-models/images/config.png?raw=true)
 
 
 ### Roda Projeto (Docker)
