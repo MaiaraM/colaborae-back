@@ -24,6 +24,7 @@ jobs:
         run: mvn clean install -q -DskipTests=true
 
   test:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
