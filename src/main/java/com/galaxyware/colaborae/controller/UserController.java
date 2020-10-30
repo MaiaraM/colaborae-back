@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController()
@@ -15,11 +17,22 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+    @GetMapping
+    public ResponseEntity<List<UserModel>> findAll() {
+        List<UserModel> list = userRepository.findAll();
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/{uuid}")
+    public ResponseEntity<UserModel> findById(@PathVariable UUID uuid) {
+           Optional<UserModel> obj=userRepository.findById(uuid);
+        return ResponseEntity.ok().body(obj.get());
+    }
 
     @PostMapping()
-    public ResponseEntity<UserModel> newUser(@RequestBody UserModel newUser){
-        //Todo - Refatorar. só fiz para testar
-        UserModel save = userRepository.save(newUser);
+    public ResponseEntity<UserModel> insert(@RequestBody UserModel obj) {
+
+        UserModel save = userRepository.save(obj);
         return ResponseEntity.ok().body(save);
     }
 
