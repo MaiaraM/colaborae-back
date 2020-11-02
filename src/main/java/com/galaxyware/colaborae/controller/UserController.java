@@ -38,7 +38,7 @@ public class UserController {
 
     @DeleteMapping("/{uuid}")
     public ResponseEntity deleteUser(@PathVariable UUID uuid){
-        //Todo - Refatorar. só fiz para testar
+
         userRepository.deleteById(uuid);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
