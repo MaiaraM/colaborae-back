@@ -1,6 +1,7 @@
 package com.galaxyware.colaborae.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
@@ -38,5 +39,6 @@ public class AddressModel extends BaseModel{
 
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL, mappedBy = "address")
+    @JsonBackReference
     protected UserModel user;
 }
