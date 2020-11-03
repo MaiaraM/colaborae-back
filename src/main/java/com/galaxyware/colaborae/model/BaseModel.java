@@ -33,5 +33,4 @@ public class BaseModel {
 
     protected Boolean active = true;
 
-
 }

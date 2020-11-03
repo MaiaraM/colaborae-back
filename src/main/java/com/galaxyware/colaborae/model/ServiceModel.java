@@ -1,6 +1,7 @@
 package com.galaxyware.colaborae.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
@@ -31,7 +32,7 @@ public class ServiceModel extends BaseModel{
     protected String description;
 
     @NotNull
-    protected String value;
+    protected Double value;
 
     protected Date time;
 

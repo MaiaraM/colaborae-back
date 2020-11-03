@@ -11,6 +11,6 @@ public class InfoController {
 
     @GetMapping("/")
     public ResponseEntity infos(){
-        return ResponseEntity.status(HttpStatus.OK).body(new InfoAPIModel("Colaborae", "0.1"));
+        return ResponseEntity.ok().body(new InfoAPIModel("Colaborae", "0.1"));
     }
 }
