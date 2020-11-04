@@ -3,10 +3,9 @@ name: Release - Build
 on:
   push:
     branches:
-      - 'release-*'
+      - main
 
 jobs:
- 
   docker:
     name: Publish - Docker Hub
     runs-on: ubuntu-18.04
