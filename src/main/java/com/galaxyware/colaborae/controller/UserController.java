@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<UserModel>> searchByFirtName(@RequestParam() String name) {
+    public ResponseEntity<List<UserModel>> searchByFirstName(@RequestParam() String name) {
         List<UserModel> user = userBo.findByFirstName(name);
         return ResponseEntity.ok().body(user);
     }
