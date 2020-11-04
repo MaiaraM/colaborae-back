@@ -1,8 +1,4 @@
 package com.galaxyware.colaborae.controller;
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 import com.galaxyware.colaborae.business.ServiceBO;
 import com.galaxyware.colaborae.model.ServiceModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +18,6 @@ public class ServiceController {
 
     @Autowired
     ServiceBO serviceBO;
-<<<<<<< HEAD
 
     @GetMapping()
     public ResponseEntity<Page<ServiceModel>> getAll(@PageableDefault(page = 0, size = 12) Pageable pageable) {
@@ -44,29 +39,6 @@ public class ServiceController {
         return ResponseEntity.ok().body(services);
     }
 
-=======
-
-    @GetMapping()
-    public ResponseEntity<Page<ServiceModel>> getAll(@PageableDefault(page = 0, size = 12) Pageable pageable) {
-        Page<ServiceModel> services = serviceBO.findAllServices(pageable);
-        return ResponseEntity.ok().body(services);
-    }
-
-    @GetMapping("/{uuid}")
-    public ResponseEntity<ServiceModel> findById(@PathVariable UUID uuid) {
-        ServiceModel service = serviceBO.findServiceByUuid(uuid);
-        return service != null
-                ? ResponseEntity.ok().body(service)
-                : ResponseEntity.notFound().build();
-    }
-
-    @GetMapping("/search")
-    public ResponseEntity<List<ServiceModel>> searchByName(@RequestParam() String title) {
-        List<ServiceModel> services = serviceBO.searchByTitle(title);
-        return ResponseEntity.ok().body(services);
-    }
-
->>>>>>> main
     @PostMapping()
     public ResponseEntity<ServiceModel> insert(@RequestBody ServiceModel serviceModel) {
         ServiceModel save = serviceBO.saveNewService(serviceModel);

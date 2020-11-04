@@ -18,7 +18,6 @@ import java.util.UUID;
 public class UserController {
 
     @Autowired
-<<<<<<< HEAD
     UserBo userBo;
 
 
@@ -58,28 +57,8 @@ public class UserController {
     public ResponseEntity< UserModel> delete(@PathVariable UUID uuid) {
         userBo.deleteUser(uuid);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-=======
-    UserRepository userRepository;
-
-
-    @GetMapping("/{uuid}")
-    public ResponseEntity<UserModel> findById(@PathVariable UUID uuid) {
-        UserModel user =userRepository.findById(uuid).orElse(null);
-        return user != null ? ResponseEntity.ok().body(user) : ResponseEntity.notFound().build();
     }
 
-    @PostMapping()
-    public ResponseEntity<UserModel> insert(@RequestBody UserModel user) {
-        UserModel newUser = userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-    }
-
-    @DeleteMapping("/{uuid}")
-    public ResponseEntity deleteUser(@PathVariable UUID uuid){
-        userRepository.deleteById(uuid);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
->>>>>>> main
-    }
 }
 
 
