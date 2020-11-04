@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController()
 @RequestMapping("/rating")
 public class RatingController {
@@ -17,8 +19,10 @@ public class RatingController {
     RatingRepository ratingRepository;
 
     @GetMapping(value = "/{rating}")
-    public ResponseEntity<RatingModel> findById(@PathVariable Integer rating) {
-        RatingModel obj=ratingRepository.findByRating(rating);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<RatingModel> findById(@PathVariable UUID uuid) {
+        RatingModel rating = ratingRepository.findById(uuid).orElse(null);
+        return rating != null
+                ? ResponseEntity.ok().body(rating)
+                : ResponseEntity.notFound().build();
     }
 }

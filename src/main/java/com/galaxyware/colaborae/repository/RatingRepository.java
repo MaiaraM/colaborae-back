@@ -9,5 +9,5 @@ import java.util.UUID;
 @Repository
 public interface RatingRepository extends JpaRepository<RatingModel, UUID> {
 
-    public RatingModel findByRating(Integer rating);
+    RatingModel findByUuid(String uuid);
 }

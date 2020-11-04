@@ -31,7 +31,7 @@ public class ServiceModel extends BaseModel{
     protected String description;
 
     @NotNull
-    protected String value;
+    protected Double value;
 
     protected Date time;
 
