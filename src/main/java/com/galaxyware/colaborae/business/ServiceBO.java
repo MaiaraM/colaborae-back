@@ -1,4 +1,8 @@
 package com.galaxyware.colaborae.business;
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 import com.galaxyware.colaborae.model.ServiceModel;
 import com.galaxyware.colaborae.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;

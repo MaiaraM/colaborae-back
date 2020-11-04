@@ -1,6 +1,7 @@
 package com.galaxyware.colaborae.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
