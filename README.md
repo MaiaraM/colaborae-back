@@ -1,5 +1,9 @@
 # ColaboraÊ API Rest
 
+[![Documentação Postman](https://img.shields.io/badge/Postman-1.0-yellow)](https://documenter.getpostman.com/view/6614451/TVYNYFMr)
+[![Documentação Postman](https://img.shields.io/badge/Java%20SDK-%3D%3E%201.8-brightgreen)](https://www.oracle.com/java/technologies/javase-downloads.html)
+![Release - Build](https://github.com/MaiaraM/colaborae-back/workflows/Release%20-%20Build/badge.svg)
+
 ### Configurações (Intellij Community)
  * Lombok
 
