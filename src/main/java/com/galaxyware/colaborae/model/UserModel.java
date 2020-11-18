@@ -1,6 +1,7 @@
 package com.galaxyware.colaborae.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
@@ -8,7 +9,9 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -33,6 +36,14 @@ public class UserModel extends BaseModel{
     @NotNull
     @Column(unique = true)
     protected String document;
+
+    @NotNull
+    protected String username;
+
+    @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    protected String password;
+
 
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
