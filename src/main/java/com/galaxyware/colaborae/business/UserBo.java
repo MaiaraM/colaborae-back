@@ -1,12 +1,10 @@
 package com.galaxyware.colaborae.business;
 
-import com.galaxyware.colaborae.model.Authority;
 import com.galaxyware.colaborae.model.UserModel;
 import com.galaxyware.colaborae.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,22 +16,13 @@ public class UserBo {
     @Autowired
     UserRepository userRepository;
 
-    @Autowired
-    private StandardAuthorityBO authorityBO;
-
     public Page<UserModel> findAllUsers(Pageable pageable) { return  userRepository.findAll(pageable); }
 
     public  UserModel findUserByUuid(UUID uuid) { return  userRepository.findById(uuid).orElse(null); }
 
     public List<UserModel> findByFirstName(String name){return  userRepository.findByFirstNameContaining(name);}
 
-    public  UserModel saveNewUser( UserModel  userModel) {
-        Authority customerAuthority = authorityBO.getCustomerAuthority();
-        userModel.addAuthority(customerAuthority);
-        userModel.setPassword(new BCryptPasswordEncoder().encode(userModel.getPassword()));
-
-        return  userRepository.save( userModel);
-    }
+    public  UserModel saveNewUser( UserModel  userModel) { return  userRepository.save( userModel); }
 
     public  UserModel updateUser(UUID uuid,  UserModel  userModel) {
          UserModel  userByUuid = findUserByUuid(uuid);
