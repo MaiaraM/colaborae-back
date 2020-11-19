@@ -2,6 +2,7 @@ package com.galaxyware.colaborae.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,10 +17,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
+@Setter
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
-	public JWTLoginFilter(String url, AuthenticationManager authManager) {
-        super(new AntPathRequestMatcher(url));
+    protected TokenAuthenticationService tokenAuthenticationService;
+
+
+    public JWTLoginFilter(String url, AuthenticationManager authManager) {
+        super(new AntPathRequestMatcher(url, "POST"));
         setAuthenticationManager(authManager);
     }
 
@@ -46,6 +51,6 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             FilterChain filterChain,
             Authentication auth) throws IOException, ServletException {
 
-        TokenAuthenticationService.addAuthentication(response, auth.getName());
+        tokenAuthenticationService.addAuthentication(response, auth);
     }
 }
