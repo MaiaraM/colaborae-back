@@ -45,6 +45,12 @@ public class UserModel extends BaseModel{
     protected String password;
 
 
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="user_authorities",
+            joinColumns = {@JoinColumn(name = "userUuid")},
+            inverseJoinColumns = {@JoinColumn(name="authorityUuid")})
+    protected Set<Authority> authorities = new HashSet<>();
+
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_uuid", referencedColumnName = "uuid")
@@ -60,5 +66,9 @@ public class UserModel extends BaseModel{
     @OneToMany(mappedBy = "user")
     @JsonBackReference
     private List<ServiceModel> services = new ArrayList<ServiceModel>();
+
+    public void addAuthority(Authority a){
+        authorities.add(a);
+    }
 
 }

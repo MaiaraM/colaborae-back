@@ -39,6 +39,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private List<WebSecurityConfigService> securityConfigurators;
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // Adds authentication from the database
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .authoritiesByUsernameQuery("select u.username, a.name from authorities a, user_authorities ua, users u where " +
+                        "a.uuid = ua.authority_uuid and ua.user_uuid in (select uuid from users where username = ?) and u.active = true;")
+                .usersByUsernameQuery("select username, password, active from users where username = ? and active = true;")
+                .passwordEncoder(new BCryptPasswordEncoder());
+    }
+
+
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         JWTLoginFilter loginFilter = new JWTLoginFilter("/login", authenticationManager());
         loginFilter.setTokenAuthenticationService(tokenAuthenticationService);
@@ -56,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/login").permitAll()
 
-                .antMatchers("/").permitAll()
+                .antMatchers("/**").permitAll()
                 .antMatchers( "/users/**").permitAll()
 
                 .anyRequest().authenticated()
@@ -72,13 +83,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Adds authentication from the database
-        auth.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("select username, password, active from users where username = ? and active = true;");
-                //.passwordEncoder(new BCryptPasswordEncoder());
-    }
 
     @Bean
     public FilterRegistrationBean<CorsFilter> initCorsFilter() {
