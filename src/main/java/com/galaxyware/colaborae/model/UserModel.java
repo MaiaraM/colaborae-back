@@ -1,6 +1,7 @@
 package com.galaxyware.colaborae.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
@@ -8,7 +9,9 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -35,6 +38,20 @@ public class UserModel extends BaseModel{
     protected String document;
 
     @NotNull
+    protected String username;
+
+    @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    protected String password;
+
+
+    @ManyToMany(fetch=FetchType.EAGER)
+    @JoinTable(name="user_authorities",
+            joinColumns = {@JoinColumn(name = "userUuid")},
+            inverseJoinColumns = {@JoinColumn(name="authorityUuid")})
+    protected Set<Authority> authorities = new HashSet<>();
+
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_uuid", referencedColumnName = "uuid")
     protected AddressModel address;
@@ -49,5 +66,9 @@ public class UserModel extends BaseModel{
     @OneToMany(mappedBy = "user")
     @JsonBackReference
     private List<ServiceModel> services = new ArrayList<ServiceModel>();
+
+    public void addAuthority(Authority a){
+        authorities.add(a);
+    }
 
 }
