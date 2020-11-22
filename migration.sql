@@ -2,15 +2,15 @@ CREATE EXTENSION "uuid-ossp";
 
 INSERT INTO public.authorities
 (id_authority, active, create_at, deleted_at,  modified_at, uuid, name)
-VALUES(1, true, (select current_timestamp),null, null (select uuid_generate_v4(), 'SUPERADMIN');
+VALUES(1, true, (select current_timestamp),null, null, (select uuid_generate_v4()), 'SUPERADMIN');
 
 INSERT INTO public.authorities
 (id_authority, active, create_at, deleted_at, modified_at, uuid, name)
-VALUES(2, true, (select current_timestamp), null, null , (select uuid_generate_v4(), 'CUSTOMER');
+VALUES(2, true, (select current_timestamp), null, null , (select uuid_generate_v4()), 'CUSTOMER');
 
 INSERT INTO public.authorities
 (id_authority,active, create_at, deleted_at, modified_at, uuid, name)
-VALUES(3, true, (select current_timestamp), null, null , (select uuid_generate_v4(), 'ADMIN');
+VALUES(3, true, (select current_timestamp), null, null , (select uuid_generate_v4()), 'ADMIN');
 
 INSERT INTO public.users
 ( active, create_at, deleted_at, modified_at, uuid, email, "password", username)

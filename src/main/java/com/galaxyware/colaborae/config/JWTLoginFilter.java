@@ -34,14 +34,13 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
         UserSecurity credentials = new ObjectMapper()
                 .readValue(request.getInputStream(), UserSecurity.class);
-
-        return getAuthenticationManager().authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        credentials.getUsername(),
-                        credentials.getPassword(),
-                        Collections.emptyList()
-                )
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+                credentials.getUsername(),
+                credentials.getPassword(),
+                Collections.emptyList()
         );
+
+        return getAuthenticationManager().authenticate(usernamePasswordAuthenticationToken);
     }
 
     @Override
