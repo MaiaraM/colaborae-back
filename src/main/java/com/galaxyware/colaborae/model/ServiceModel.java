@@ -7,10 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
 import org.hibernate.annotations.SQLDelete;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,4 +39,7 @@ public class ServiceModel extends BaseModel{
 
     @OneToMany(mappedBy = "service")
     private List<RatingModel> rating = new ArrayList<RatingModel>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CategoryModel category;
 }
