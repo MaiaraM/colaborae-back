@@ -8,8 +8,10 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -27,5 +29,9 @@ public class CategoryModel extends BaseModel{
 
     @NotNull
     protected String descricao;
+
+    @OneToMany(mappedBy = "category")
+    private List<ServiceModel> services = new ArrayList<ServiceModel>();
+
 
 }

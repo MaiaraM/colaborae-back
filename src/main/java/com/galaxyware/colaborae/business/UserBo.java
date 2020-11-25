@@ -1,7 +1,9 @@
 package com.galaxyware.colaborae.business;
 
+import com.galaxyware.colaborae.model.AddressModel;
 import com.galaxyware.colaborae.model.Authority;
 import com.galaxyware.colaborae.model.UserModel;
+import com.galaxyware.colaborae.repository.AddressRepository;
 import com.galaxyware.colaborae.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,9 @@ public class UserBo {
     
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
 
     @Autowired
     private StandardAuthorityBO authorityBO;
@@ -36,12 +41,20 @@ public class UserBo {
     }
 
     public  UserModel updateUser(UUID uuid,  UserModel  userModel) {
-         UserModel  userByUuid = findUserByUuid(uuid);
+         UserModel userByUuid = findUserByUuid(uuid);
+
+        AddressModel address = userByUuid.getAddress();
+        address.setAddress(userModel.getAddress().getAddress());
+        address.setBlock(userModel.getAddress().getBlock());
+        address.setCity(userModel.getAddress().getCity());
+        address.setNumber(userModel.getAddress().getNumber());
+        address.setState(userModel.getAddress().getState());
+        address.setZipcode(userModel.getAddress().getZipcode());
+        addressRepository.save(address);
 
          userByUuid.setFirstName( userModel.getFirstName());
          userByUuid.setLastName(userModel.getLastName());
          userByUuid.setEmail(userModel.getEmail());
-         userByUuid.setAddress(userModel.getAddress());
          userByUuid.setDescription(userModel.getDescription());
          userByUuid.setFavorites(userModel.getFavorites());
 
