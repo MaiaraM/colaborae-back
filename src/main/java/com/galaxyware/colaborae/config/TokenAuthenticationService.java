@@ -34,6 +34,9 @@ public class TokenAuthenticationService {
     protected UserRepository userRepository;
 
     public void addAuthentication(HttpServletResponse response, Authentication auth) {
+
+        UserModel u = userRepository.findByUsername(auth.getName());
+
         //We need to add our users authorities to their token so we can restrict certain API's
         String authorities = auth.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -41,6 +44,8 @@ public class TokenAuthenticationService {
 
         String JWT = Jwts.builder()
                 .setSubject(auth.getName())
+                .setSubject(String.valueOf(u.getUuid()))
+                .claim(AUTHORITIES_KEY, authorities)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
