@@ -1,6 +1,8 @@
 package com.galaxyware.colaborae.controller;
 
+import com.galaxyware.colaborae.business.ServiceBO;
 import com.galaxyware.colaborae.business.UserBo;
+import com.galaxyware.colaborae.model.ServiceModel;
 import com.galaxyware.colaborae.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,6 +21,9 @@ public class UserController {
 
     @Autowired
     UserBo userBo;
+
+    @Autowired
+    ServiceBO serviceBO;
 
 
     @GetMapping()
@@ -57,6 +62,13 @@ public class UserController {
     public ResponseEntity< UserModel> delete(@PathVariable UUID uuid) {
         userBo.deleteUser(uuid);
         return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+
+    @GetMapping("/{uuid}/services")
+    public ResponseEntity<List<ServiceModel>> getServices(@PathVariable UUID uuid) {
+       List<ServiceModel> services =  serviceBO.getServiceByUser(uuid);
+        return ResponseEntity.ok().body(services);
     }
 
 }

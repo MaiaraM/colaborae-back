@@ -13,4 +13,6 @@ import java.util.UUID;
 @Repository
 public interface ServiceRepository extends JpaRepository<ServiceModel, UUID> {
     List<ServiceModel> findByTitleContaining(String title);
+
+    List<ServiceModel> findByUserUuid(UUID uuid);
 }
