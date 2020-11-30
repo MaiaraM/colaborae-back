@@ -40,4 +40,8 @@ public class ServiceBO {
     public void deleteService(UUID uuid) {
         serviceRepository.deleteById(uuid);
     }
+
+    public List<ServiceModel> getServiceByUser(UUID uuid) {
+        return serviceRepository.findByUserUuid(uuid);
+    }
 }
