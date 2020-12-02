@@ -1,6 +1,8 @@
 package com.galaxyware.colaborae.business;
 
+import com.galaxyware.colaborae.model.CategoryModel;
 import com.galaxyware.colaborae.model.ServiceModel;
+import com.galaxyware.colaborae.repository.CategoryRepository;
 import com.galaxyware.colaborae.repository.ServiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,9 @@ public class ServiceBO {
 
     @Autowired
     ServiceRepository serviceRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
 
     public Page<ServiceModel> findAllServices(Pageable pageable) { return serviceRepository.findAll(pageable); }
 
@@ -33,6 +38,9 @@ public class ServiceBO {
         serviceByUuid.setTitle(serviceModel.getTitle());
         serviceByUuid.setValue(serviceModel.getValue());
         serviceByUuid.setActive(serviceModel.getActive());
+
+        CategoryModel byName = categoryRepository.findByName(serviceModel.getCategory().getName());
+        serviceByUuid.setCategory(byName);
 
         return serviceRepository.save(serviceByUuid);
     }
