@@ -29,8 +29,9 @@ public class ServiceBO {
 
     public ServiceModel saveNewService(ServiceModel serviceModel) {
         CategoryModel byName = categoryRepository.findByName(serviceModel.getCategory().getName());
-        serviceModel.setCategory(byName);
-
+        if(byName != null){
+            serviceModel.setCategory(byName);
+        }
         return serviceRepository.save(serviceModel);
     }
 
@@ -45,7 +46,9 @@ public class ServiceBO {
         serviceByUuid.setActive(serviceModel.getActive());
 
         CategoryModel byName = categoryRepository.findByName(serviceModel.getCategory().getName());
-        serviceByUuid.setCategory(byName);
+        if(byName != null){
+            serviceByUuid.setCategory(byName);
+        }
 
         return serviceRepository.save(serviceByUuid);
     }
