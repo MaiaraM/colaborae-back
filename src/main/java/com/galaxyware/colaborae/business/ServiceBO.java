@@ -27,7 +27,12 @@ public class ServiceBO {
 
     public List<ServiceModel> searchByTitle(String title) { return serviceRepository.findByTitleContaining(title); }
 
-    public ServiceModel saveNewService(ServiceModel serviceModel) { return serviceRepository.save(serviceModel); }
+    public ServiceModel saveNewService(ServiceModel serviceModel) {
+        CategoryModel byName = categoryRepository.findByName(serviceModel.getCategory().getName());
+        serviceModel.setCategory(byName);
+
+        return serviceRepository.save(serviceModel);
+    }
 
     public ServiceModel updateService(UUID uuid, ServiceModel serviceModel) {
         ServiceModel serviceByUuid = findServiceByUuid(uuid);

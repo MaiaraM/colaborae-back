@@ -1,6 +1,7 @@
 package com.galaxyware.colaborae.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
@@ -31,6 +32,7 @@ public class CategoryModel extends BaseModel{
     protected String descricao;
 
     @OneToMany(mappedBy = "category")
+    @JsonBackReference
     private List<ServiceModel> services = new ArrayList<ServiceModel>();
 
 

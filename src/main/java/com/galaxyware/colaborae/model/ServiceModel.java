@@ -2,6 +2,7 @@ package com.galaxyware.colaborae.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ResultCheckStyle;
@@ -40,6 +41,7 @@ public class ServiceModel extends BaseModel{
     @OneToMany(mappedBy = "service")
     private List<RatingModel> rating = new ArrayList<RatingModel>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
+    @JsonManagedReference
     private CategoryModel category;
 }
