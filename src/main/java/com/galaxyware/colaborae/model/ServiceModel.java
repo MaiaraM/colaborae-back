@@ -41,7 +41,6 @@ public class ServiceModel extends BaseModel{
     @OneToMany(mappedBy = "service")
     private List<RatingModel> rating = new ArrayList<RatingModel>();
 
-    @ManyToOne()
-    @JsonManagedReference
+    @ManyToOne
     private CategoryModel category;
 }
